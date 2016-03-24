@@ -1,0 +1,36 @@
+****************************
+ Powered By MCP:             
+ http://modcoderpack.com/    
+ Searge, ProfMobius, Fesh0r, 
+ R4wk, ZeuX, IngisKahn, bspkrs
+ MCP Data version : unknown
+****************************
+:compileApiJava UP-TO-DATE
+:processApiResources UP-TO-DATE
+:apiClasses UP-TO-DATE
+:sourceMainJava
+:compileJava警告: [options] ブートストラップ・クラスパスが-source 1.7と一緒に設定されていません
+C:\pleiades\workspace\SimplyGenerators\build\sources\java\common\item\ItemGCore.java:26: 警告: [deprecation] ItemのhasEffect(ItemStack)は非推奨になりました
+	public boolean hasEffect(ItemStack itemStack){
+	               ^
+警告2個
+
+:processResources
+:classes
+:jar
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test UP-TO-DATE
+:extractMcpData UP-TO-DATE
+:getVersionJson
+:extractUserDev UP-TO-DATE
+:genSrgs SKIPPED
+:reobf
+:assemble
+:check UP-TO-DATE
+:build
+
+BUILD SUCCESSFUL
+
+Total time: 1 mins 17.5 secs

@@ -1,0 +1,47 @@
+#Lang
+
+itemGroup.Simply Generators=Simply Generators
+itemGroup.Simply Generators.deco=Simply Generators(Decorative)
+crafting.simplyGenerators=SG Craft Table
+
+tile.sg.generator.1.name=§bUniversal Generator
+tile.sg.boiler.name=§bBoiler
+
+tile.sg.energyCell.t1.name=§4Energy Cell §bT1§r
+tile.sg.energyCell.t2.name=§4Energy Cell §bT2§r
+tile.sg.energyCell.t3.name=§4Energy Cell §bT3§r
+tile.sg.energyCell.t4.name=§4Energy Cell §bT4§r
+
+tile.sg.storage.1.name=§bFluid Storage
+tile.sg.storage.2.name=§bReinforced Fluid Storage
+tile.sg.crafting.name=§dSG Crafting Table
+tile.sg.reinforcedGlass.name=§8Reinforced Glass
+tile.sg.denseBlock.1.name=§6Dense Block of Redstone
+tile.sg.denseBlock.2.name=§6Dense Block of Iron
+
+tile.sg.deco.name=Decorative Block
+tile.sg.deco.1.name=Decorative Block 1
+
+tile.sg.machineFrame.name=§aMachine Frame
+
+item.sg.flintAndSteelt.name=§1(debug) FlintAndSteel
+item.sg.soulariumCannon.name=§dSoularium Cannon
+
+item.sg.armorCore.name=§4Armor Core
+
+item.sg.Gcore.name=§4Generator Core§6(GCore)§r
+item.sg.itemMaterial.circuit.name=§bBasic Circuit
+item.sg.itemMaterial.gearWood.name=§2Wood Gear
+item.sg.itemMaterial.gearStone.name=§7Stone Gear
+item.sg.itemMaterial.gearIron.name=§fIron Gear
+item.sg.itemMaterial.gearGold.name=§6Gold Gear
+item.sg.itemMaterial.gearDiamond.name=§bDiamond Gear
+
+item.simplygenerators:demon_helm.name=Armor Of Demon Helmet
+item.simplygenerators:demon_chest.name=Armor Of Demon ChestPlate
+item.simplygenerators:demon_leggins.name=Armor Of Demon Leggings
+item.simplygenerators:demon_boots.name=Armor Of Demon Boots
+
+item.sg.swordDemon.name=§9Blade Of GregLife
+
+tile.sg.fluid.steam.name=Steam

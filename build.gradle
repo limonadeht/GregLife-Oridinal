@@ -29,7 +29,7 @@ dependencies {
 }
  
 archivesBaseName = "SimplyGenerators"
-version = "Alpha-3.0-Test-2"
+version = "Beta-1.3.0-Test"
 minecraft.version = "1.7.10-10.13.4.1558-1.7.10"
  
 [compileJava, compileTestJava].each {

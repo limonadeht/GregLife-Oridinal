@@ -51,22 +51,24 @@ public class TileEnergyCell extends TileEntity implements IEnergyHandler{
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt){
+		super.readFromNBT(nbt);
 		this.energyStorage.readFromNBT(nbt);
-		//super.readFromNBT(nbt);
 	}
 
 	@Override
     public void writeToNBT(NBTTagCompound nbt){
+		super.writeToNBT(nbt);
 		this.energyStorage.writeToNBT(nbt);
-		//super.writeToNBT(nbt);
 	}
 
+	@Override
 	public Packet getDescriptionPacket(){
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		this.writeToNBT(nbttagcompound);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 3, nbttagcompound);
+		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbttagcompound);
 	}
 
+	@Override
 	public void onDataPacket(NetworkManager networkManager, S35PacketUpdateTileEntity packet){
 		this.readFromNBT(packet.func_148857_g());
 	}

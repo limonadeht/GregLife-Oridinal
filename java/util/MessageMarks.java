@@ -52,7 +52,7 @@ String stoneName;
 		ItemStack heldStack = player.getHeldItem();
 		ItemSwordOfDemon stone = (ItemSwordOfDemon) heldStack.getItem();
 		ItemStack newStack = new ItemStack(stone);
-		stone.mark(stoneName, player, heldStack);
+		//stone.mark(stoneName, player, heldStack);
 
 		// Consume Blank Stone and add the new Recall Stone
 		if(heldStack.stackSize == 1)

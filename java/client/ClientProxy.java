@@ -46,6 +46,8 @@ public class ClientProxy extends CommonProxy{
 		MinecraftForgeClient.registerItemRenderer(Contents.demon_ChestPlate, ItemArmorChestRenderer.instance);
 		MinecraftForgeClient.registerItemRenderer(Contents.demon_Leggins, ItemArmorLegRenderer.instance);
 		MinecraftForgeClient.registerItemRenderer(Contents.demon_Boots, ItemArmorBootsRenderer.instance);
+
+		//MinecraftForgeClient.registerItemRenderer(Contents.sword_of_demon, ItemBladeGregLifeRenderer.instance);
 	}
 
 	@Override

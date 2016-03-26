@@ -16,7 +16,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -28,16 +27,19 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import util.ItemNBTHelper;
 
-public class ItemSwordOfDemon extends ItemSword implements IEnergyContainerItem /*IExtendedEntityProperties*/{
-
-	public final static String EXT_PROP_NAME = SimplyGenerators.MOD_ID;
+public class ItemSwordOfDemon extends ItemSword implements IEnergyContainerItem{
 
 	public int maxEnergy = 1000000000;
 	private int maxTransfer = maxEnergy / 5;
 	private int energyPerDamage = 800;
 
 	protected String name;
-	protected int exp, maxExp, level, maxLevel;
+
+	protected int exp;
+	protected int maxExp;
+	protected int level;
+	protected int maxLevel;
+
 	protected int damage;
 
 	public ItemSwordOfDemon(String name, ToolMaterial material){
@@ -47,24 +49,11 @@ public class ItemSwordOfDemon extends ItemSword implements IEnergyContainerItem 
 		this.setCreativeTab(SimplyGenerators.SimplyGeneratorsTab);
 		this.setTextureName("simplygenerators:sword_demon");
 
-		this.setMaxLevel(60);
+		this.setMaxLevel(300);
 		this.setMaxExp(50);
 
 		GameRegistry.registerItem(this, name);
 	}
-
-	/*public static final IExtendedEntityProperties register(EntityPlayer player){
-		return (ItemSwordOfDemon)player.getExtendedProperties(EXT_PROP_NAME);
-	}
-
-	public static final ItemSwordOfDemon get(EntityPlayer player){
-		return (ItemSwordOfDemon)player.getExtendedProperties(EXT_PROP_NAME);
-	}
-
-	@Override
-	public void init(Entity entity, World world){
-
-	}*/
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@SideOnly(Side.CLIENT)
@@ -72,16 +61,18 @@ public class ItemSwordOfDemon extends ItemSword implements IEnergyContainerItem 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4){
 		list.add(EnumChatFormatting.LIGHT_PURPLE + "EnergyStored: " + this.getEnergyStored(stack) + " / " + this.maxEnergy);
 		list.add(EnumChatFormatting.GRAY + "-----------------");
-		list.add(EnumChatFormatting.GOLD + "Current EXP: " + EnumChatFormatting.GREEN + this.exp + EnumChatFormatting.GRAY + " / " + EnumChatFormatting.DARK_RED + this.maxExp);
-		list.add(EnumChatFormatting.GOLD + "Current Level: " + EnumChatFormatting.GREEN + this.level + EnumChatFormatting.GRAY + " / "+ EnumChatFormatting.DARK_RED + this.maxLevel);
+		list.add(EnumChatFormatting.GOLD + "Current EXP: " + EnumChatFormatting.GREEN + stack.stackTagCompound.getInteger("Exp") +
+				EnumChatFormatting.GRAY + " / " + EnumChatFormatting.DARK_RED + stack.stackTagCompound.getInteger("Max Exp"));
+
+		list.add(EnumChatFormatting.GOLD + "Current LEVEL: " + EnumChatFormatting.GREEN + stack.stackTagCompound.getInteger("Level") +
+				EnumChatFormatting.GRAY + " / "+ EnumChatFormatting.DARK_RED + stack.stackTagCompound.getInteger("Max Level"));
+
 		if(SimplyGenerators.commonProxy.isShiftKeyDown()){
 			list.add("");
 			list.add("EntityMob: 5exp");
-			list.add("EnderDragon: 50exp");
-			list.add("PlayerKilled: 0exp");
 			list.add("");
 			if(stack.stackTagCompound != null){
-				list.add("Nbt from: " + ItemNBTHelper.getInteger(stack, "Exp", exp) + " / " + ItemNBTHelper.getInteger(stack, "Level", level));
+				list.add("Nbt from: " + stack.stackTagCompound.getInteger("Exp") + " / " + stack.stackTagCompound.getInteger("Level") + " / " + stack.stackTagCompound.getInteger("Max Exp"));
 			}
 		}else{
 			list.add("Press" + EnumChatFormatting.AQUA + EnumChatFormatting.ITALIC + " LSHIFT " + EnumChatFormatting.GRAY + "for Info");
@@ -108,12 +99,14 @@ public class ItemSwordOfDemon extends ItemSword implements IEnergyContainerItem 
 	@Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10){
 
-		if(!player.isSneaking()){
+		/*if(!player.isSneaking()){
 			NBTTagCompound nbt = stack.getTagCompound();
 			if(nbt != null){
 				nbt = new NBTTagCompound();
 
-				nbt.setInteger("Exp", this.exp);
+				int expTotal = stack.getTagCompound().getInteger("Exp") + exp;
+
+				nbt.setInteger("Exp", expTotal);
 				nbt.setInteger("Max Exp", this.maxExp);
 				nbt.setInteger("Level", this.level);
 				nbt.setInteger("Max Level", this.maxLevel);
@@ -122,22 +115,9 @@ public class ItemSwordOfDemon extends ItemSword implements IEnergyContainerItem 
 				if(!world.isRemote){
 					player.addChatComponentMessage(new ChatComponentText("Nbt set."));
 				}
-			}else{
-				nbt = new NBTTagCompound();
-
-				nbt.getInteger("Exp");
-				nbt.getInteger("Max Exp");
-				nbt.getInteger("Level");
-				nbt.getInteger("Max Level");
-
-				if(!world.isRemote){
-					player.addChatComponentMessage(new ChatComponentText("Nbt Loaded."));
-				}
 			}
-		}
-
-
-		return true;
+		}*/
+		return false;
     }
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -148,23 +128,8 @@ public class ItemSwordOfDemon extends ItemSword implements IEnergyContainerItem 
 		 Minecraft mc = Minecraft.getMinecraft();
 
          multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
-        		 new AttributeModifier(field_111210_e, "Weapon modifier", exp, 0));
+        		 new AttributeModifier(field_111210_e, "Weapon modifier", ItemNBTHelper.getInteger(new ItemStack(this), "Level", level) * 3, 0));
          return multimap;
-	}
-
-	@Override
-	public boolean hitEntity(ItemStack stack, EntityLivingBase entity1, EntityLivingBase entity2){
-
-		if(entity1 instanceof EntityMob){
-			this.addExp(5);
-		}
-		if(entity1 instanceof EntityDragon){
-			this.addExp(1000);
-		}
-		if(entity1 instanceof EntityPlayer){
-			this.addExp(0);
-		}
-		return super.hitEntity(stack, entity1, entity2);
 	}
 
 	@Override
@@ -174,18 +139,6 @@ public class ItemSwordOfDemon extends ItemSword implements IEnergyContainerItem 
 				levelUp();
 			}else if(canLevelDown()){
 				levelDown();
-			}
-		}
-
-		if(this.getLevel() > 1){
-			this.damage = this.getLevel() * 3;
-		}
-	}
-
-	public void mark(String name, EntityPlayer player, ItemStack itemStack) {
-		if (itemStack.getItem() instanceof ItemSwordOfDemon) {
-			if (name!="") {
-				itemStack.setStackDisplayName(name);
 			}
 		}
 	}
@@ -305,6 +258,7 @@ public class ItemSwordOfDemon extends ItemSword implements IEnergyContainerItem 
 
 		Minecraft mc = Minecraft.getMinecraft();
 		mc.thePlayer.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.GOLD + "Level Up to: " + this.getLevel()));
+		mc.thePlayer.playSound("random.levelup", 1.0F, 1.0F);
 	}
 
 	public void levelDown(){
@@ -347,5 +301,38 @@ public class ItemSwordOfDemon extends ItemSword implements IEnergyContainerItem 
 	@Override
 	public int getMaxEnergyStored(ItemStack container) {;
 		return this.maxEnergy;
+	}
+
+	@Override
+	public boolean hitEntity(ItemStack stack, EntityLivingBase entity1, EntityLivingBase entity2){
+		if(entity1 instanceof EntityMob){
+			NBTTagCompound nbt = stack.getTagCompound();
+
+			extractEnergy(stack, nbt.getInteger("Level") * energyPerDamage, false);
+
+			/*//一度だけ実行
+			for(int i = 0; i < 1; i++){
+				exp = nbt.getInteger("Exp");
+				maxExp = stack.getTagCompound().getInteger("Max Exp");
+				level = stack.getTagCompound().getInteger("Level");
+				maxLevel = stack.getTagCompound().getInteger("Max Level");
+				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("Loaded NBT's"));
+				i = 0;
+			}*/
+
+			addExp(500000);
+			if(nbt != null){
+				nbt = new NBTTagCompound();
+
+				nbt.setInteger("Energy", this.getEnergyStored(stack));
+				nbt.setInteger("Exp", this.exp);
+				nbt.setInteger("Max Exp", this.maxExp);
+				nbt.setInteger("Level", this.level);
+				nbt.setInteger("Max Level", this.maxLevel);
+
+				stack.setTagCompound(nbt);
+			}
+		}
+		return super.hitEntity(stack, entity1, entity2);
 	}
 }

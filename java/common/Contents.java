@@ -1,10 +1,5 @@
 package common;
 
-import client.tileentity.TileBoiler;
-import client.tileentity.TileEnergyCell;
-import client.tileentity.TileOreCreator;
-import client.tileentity.TileSGCraftTable;
-import client.tileentity.TileTankStorage;
 import common.block.BlockBoiler;
 import common.block.BlockDenseIron;
 import common.block.BlockDenseRedstone;
@@ -106,23 +101,14 @@ public class Contents {
 
 		GameRegistry.registerBlock(universalGenerator, ItemUniversalGenerator.class, "sg.tile.generator.1");
 		GameRegistry.registerBlock(tankStorage, ItemTankStorage.class, "sg.tile.storage.1");
-		GameRegistry.registerTileEntity(TileTankStorage.class, "sg.tile.storage.1");
 		GameRegistry.registerBlock(tankStorageReinforced, ItemTankStorage.class, "sg.tile.storage.2");
-		GameRegistry.registerTileEntity(TileTankStorage.Reinforced.class, "sg.tile.storage.2");
 		GameRegistry.registerBlock(energyCell_t1, ItemEnergyCell.class, "sg.tile.energyCell.t1");
-		GameRegistry.registerTileEntity(TileEnergyCell.class, "sg.tile.energyCell.t1");
 		GameRegistry.registerBlock(energyCell_t2, ItemEnergyCell.class, "sg.tile.energyCell.t2");
-		GameRegistry.registerTileEntity(TileEnergyCell.T2.class, "sg.tile.energyCell.t2");
 		GameRegistry.registerBlock(energyCell_t3, ItemEnergyCell.class, "sg.tile.energyCell.t3");
-		GameRegistry.registerTileEntity(TileEnergyCell.T3.class, "sg.tile.energyCell.t3");
 		GameRegistry.registerBlock(energyCell_t4, ItemEnergyCell.class, "sg.tile.energyCell.t4");
-		GameRegistry.registerTileEntity(TileEnergyCell.T4.class, "sg.tile.energyCell.t4");
 		GameRegistry.registerBlock(boiler, ItemBoiler.class, "sg.tile.boiler");
-		GameRegistry.registerTileEntity(TileBoiler.class, "sg.tile.boiler");
 		GameRegistry.registerBlock(oreCreator, "sg.tile.oreCreator");
-		GameRegistry.registerTileEntity(TileOreCreator.class, "sg.tile.oreCreator");
 		GameRegistry.registerBlock(SGCraftTable, ItemSGCraftTable.class, "sg.tile.crafting");
-		GameRegistry.registerTileEntity(TileSGCraftTable.class, "sg.tile.crafting");
 		GameRegistry.registerBlock(reinforcedGlass, "sg.tile.blockDeco.1");
 		GameRegistry.registerBlock(denseRedstoneBlock, "sg.tile.blockDeco.2");
 		GameRegistry.registerBlock(denseIronBlock, "sg.tile.blockDeco.3");

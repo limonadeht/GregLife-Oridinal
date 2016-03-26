@@ -11,14 +11,10 @@ import handler.GuiHandler;
 import handler.PacketHandler;
 import handler.SGEntityPropertiesEventHandler;
 import handler.SGEventHandler;
-import nbt.INBTSaveObject;
-import nbt.NBTSaveManager;
-import nbt.NBTSaveObject;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
-import recipe.NEIRecipeRegister;
 import server.CommonProxy;
 import util.MessageMarks;
 import util.PacketPipeline;
@@ -54,9 +50,6 @@ public class SimplyGenerators {
 		PacketHandler.init();
 	}
 
-	NBTSaveManager manager;
-	INBTSaveObject object;
-
 	@SuppressWarnings("static-access")
 	@EventHandler
 	public void Init(FMLPreInitializationEvent e){
@@ -64,12 +57,9 @@ public class SimplyGenerators {
 		Contents.instance.load();
 		Recipes.instance.loadRecipe();
 
-		(new NEIRecipeRegister()).setRecipeList();
-
 		commonProxy.LoadNEI();
 		commonProxy.registerRenderers();
-		commonProxy.registerTileEntitys();
-
+		commonProxy.registerTileEntity();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this.Instance, new GuiHandler());
 
@@ -82,15 +72,10 @@ public class SimplyGenerators {
 		network.initialise();
 		network.registerPacket(MessageMarks.class);
 
-		//二箇所に登録するので、先にインスタンスを生成しておく。
 		SGEntityPropertiesEventHandler SGPropertiesEventHandler = new SGEntityPropertiesEventHandler();
-		//Forge Eventの登録。EntityEvent.EntityConstructingとLivingDeathEventとEntityJoinWorldEvent
 		MinecraftForge.EVENT_BUS.register(SGPropertiesEventHandler);
 		//FML Eventの登録。PlayerRespawnEvent
 		FMLCommonHandler.instance().bus().register(SGPropertiesEventHandler);
-
-		this.object = new NBTSaveObject();
-		this.manager = new NBTSaveManager(this.object);
 	}
 
 	@EventHandler
